@@ -1,0 +1,56 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.4.0-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'precognox.apptest'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(22)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	// JSP support for rendering views
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.28'
+
+	// Spring Boot Starter Web for web applications
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Correct version for Jakarta Servlet API (align with Tomcat)
+	implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+	// JAXB for XML Parsing
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+	implementation 'com.sun.xml.bind:jaxb-impl'
+	implementation 'com.sun.xml.bind:jaxb-core'
+
+	// Apache Commons Compress for handling .gz files
+	implementation 'org.apache.commons:commons-compress:1.26.0'
+
+	// Provided runtime dependencies for servlet container
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	// Spring Boot Starter Test for testing support
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+
+// Configure the WAR plugin
+bootWar {
+	archiveFileName = 'app_test.war'  // Name your WAR file appropriately
+}
+tasks.named('test') {
+	useJUnitPlatform()
+}

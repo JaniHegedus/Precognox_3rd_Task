@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XML Data Processor</title>
+</head>
+<body>
+<h2>Process XML Data</h2>
+<form action="/processData" method="post">
+    <label for="filePath">XML File Path:</label>
+    <input type="text" id="filePath" name="filePath" required><br>
+
+    <label for="filter">Filter by starting letter (optional):</label>
+    <input type="text" id="filter" name="filter"><br>
+
+    <label for="sortOrder">Sort Order:</label>
+    <select id="sortOrder" name="sortOrder">
+        <option value="alphabetical">Alphabetical</option>
+        <option value="frequency">By Frequency</option>
+    </select><br>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
