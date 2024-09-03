@@ -21,6 +21,7 @@ public class DataProcessorServlet extends HttpServlet implements Servlet {
         String filePath = request.getParameter("filePath");
         String filter = request.getParameter("filter");
         String sortOrder = request.getParameter("sortOrder");
+        String sortBy = request.getParameter("sortBy");
 
         // Process XML file
         Map<String, Integer> nameFrequencyMap = xmlProcessorService.processXmlFile(filePath);
@@ -31,7 +32,7 @@ public class DataProcessorServlet extends HttpServlet implements Servlet {
         }
 
         if ("frequency".equals(sortOrder)) {
-            nameFrequencyMap = sortByFrequency(nameFrequencyMap);
+            nameFrequencyMap = sortByFrequency(nameFrequencyMap, sortBy);
         }
 
         // Set the results as a request attribute
@@ -41,9 +42,15 @@ public class DataProcessorServlet extends HttpServlet implements Servlet {
 
 
 
-    private Map<String, Integer> sortByFrequency(Map<String, Integer> map) {
+    private Map<String, Integer> sortByFrequency(Map<String, Integer> map, String sortBy) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(map.entrySet());
-        list.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
+
+        // Sort based on the sortBy parameter (asc or desc)
+        if ("asc".equalsIgnoreCase(sortBy)) {
+            list.sort(Map.Entry.comparingByValue());
+        } else {
+            list.sort(Map.Entry.comparingByValue(Collections.reverseOrder()));
+        }
 
         Map<String, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : list) {
