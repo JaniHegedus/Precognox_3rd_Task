@@ -48,7 +48,7 @@ dependencies {
 
 
 // Configure the WAR plugin
-bootWar {
+war {
 	archiveFileName = 'app_test.war'  // Name your WAR file appropriately
 }
 tasks.named('test') {
